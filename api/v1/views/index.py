@@ -10,6 +10,7 @@ def hbnbStatus():
     """hbnbStatus"""
     return jsonify({"status": "OK"})
 
+
 @app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def stats():
     """ Returns the number of each instance type """
@@ -21,5 +22,4 @@ def stats():
         "states": storage.count("State"),
         "users": storage.count("User")
     }
-
     return jsonify(counts)
