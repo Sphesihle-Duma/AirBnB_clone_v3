@@ -5,7 +5,7 @@ from flask import jsonify
 from models import storage
 
 
-@app_views.route("/status", strict_slashes=False, methods=["GET"])
+@app_views.route("/stats", methods=["GET"], strict_slashes=False)
 def hbnbStatus():
     """hbnbStatus"""
     return jsonify({"status": "OK"})
@@ -14,9 +14,13 @@ def hbnbStatus():
 @app_views.route('/stats', methods=['GET'], strict_slashes=False)
 def stats():
     """ Returns the number of each instance type """
-    return jsonify(amenities=storage.count("Amenity"),
-                   cities=storage.count("City"),
-                   places=storage.count("Place"),
-                   reviews=storage.count("Review"),
-                   states=storage.count("State"),
-                   users=storage.count("User"))
+    counts = {
+        "amenities": storage.count("Amenity"),
+        "cities": storage.count("City"),
+        "places": storage.count("Place"),
+        "reviews": storage.count("Review"),
+        "states": storage.count("State"),
+        "users": storage.count("User")
+    }
+
+    return jsonify(counts)
